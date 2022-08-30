@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BillingService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BillingTest</a> &gt; <a href="index.source.html" class="el_package">com.columnhack.service</a> &gt; <span class="el_source">BillingService.java</span></div><h1>BillingService.java</h1><pre class="source lang-java linenums">package com.columnhack.service;
+
+import com.columnhack.bill.Bill;
+import com.columnhack.bill.BillCalculator;
+import com.columnhack.factory.BillCalculatorFactory;
+import com.columnhack.store.Store;
+import com.columnhack.user.User;
+import com.columnhack.user.UserType;
+
+import java.util.Map;
+
+public class BillingService {
+    private BillCalculatorFactory billCalculatorFactory;
+
+<span class="fc" id="L15">    public BillingService(BillCalculatorFactory billCalculatorFactory) {</span>
+<span class="fc" id="L16">        this.billCalculatorFactory = billCalculatorFactory;</span>
+<span class="fc" id="L17">    }</span>
+
+    public double calculateNetAmount(Bill bill, Store store) {
+<span class="fc" id="L20">        double netAmount = 0.0;</span>
+<span class="fc" id="L21">        User customer = getCustomer(bill, store);</span>
+<span class="fc" id="L22">        BillCalculator billCalculator = billCalculatorFactory.newBillCalculator(customer, bill);</span>
+<span class="fc" id="L23">        netAmount = billCalculator.getNetAmount(customer, bill, store)</span>
+<span class="fc" id="L24">                - rewardForEveryHundred(bill, store.getDiscountService().getDiscounts());</span>
+<span class="fc" id="L25">        return netAmount;</span>
+    }
+
+    private User getCustomer(Bill bill, Store store) {
+<span class="fc" id="L29">        return store.getCustomerService().getUsers().stream()</span>
+<span class="pc bpc" id="L30" title="1 of 2 branches missed.">                .filter(user -&gt; user.getId() == bill.getUserId())</span>
+<span class="fc" id="L31">                .findFirst().get();</span>
+    }
+
+    private double rewardForEveryHundred(Bill bill, Map&lt;UserType, Double&gt; discounts) {
+<span class="fc bfc" id="L35" title="All 2 branches covered.">        if (bill.getAmount() &lt; 100) return 0.0;</span>
+<span class="fc" id="L36">        int noOfHundreds = (int) bill.getAmount() / 100;</span>
+<span class="fc" id="L37">        double nonPercentDiscount = discounts.get(UserType.NON_PERCENT);</span>
+<span class="fc" id="L38">        double totalDiscount = noOfHundreds * nonPercentDiscount;</span>
+<span class="fc" id="L39">        return totalDiscount;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

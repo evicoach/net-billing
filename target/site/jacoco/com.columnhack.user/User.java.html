@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>User.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BillingTest</a> &gt; <a href="index.source.html" class="el_package">com.columnhack.user</a> &gt; <span class="el_source">User.java</span></div><h1>User.java</h1><pre class="source lang-java linenums">package com.columnhack.user;
+
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+
+import static java.util.Calendar.*;
+
+public class User {
+    private long id;
+    private String firstName;
+    private String lastName;
+    private UserType type;
+    private Date date;
+
+<span class="nc" id="L16">    public User() {</span>
+<span class="nc" id="L17">    }</span>
+
+<span class="fc" id="L19">    public User(long id, String firstName, String lastName, UserType type, Date data) {</span>
+<span class="fc" id="L20">        this.id = id;</span>
+<span class="fc" id="L21">        this.firstName = firstName;</span>
+<span class="fc" id="L22">        this.lastName = lastName;</span>
+<span class="fc" id="L23">        this.type = type;</span>
+<span class="fc" id="L24">        this.date = data;</span>
+<span class="fc" id="L25">    }</span>
+
+    public long getId() {
+<span class="fc" id="L28">        return id;</span>
+    }
+
+    public UserType getType() {
+
+<span class="fc" id="L33">        return type;</span>
+    }
+
+//    public int getDiffYears(Date first, Date last) {
+//        Calendar a = getCalendar(first);
+//        Calendar b = getCalendar(last);
+//        int diff = b.get(YEAR) - a.get(YEAR);
+//        if (a.get(MONTH) &gt; b.get(MONTH) ||
+//                (a.get(MONTH) == b.get(MONTH) &amp;&amp; a.get(DATE) &gt; b.get(DATE))) {
+//            diff--;
+//        }
+//        return diff;
+//    }
+
+    public int getDiffYears(Date last) {
+<span class="fc" id="L48">        Calendar a = getCalendar(date);</span>
+<span class="fc" id="L49">        Calendar b = getCalendar(last);</span>
+<span class="fc" id="L50">        int diff = b.get(YEAR) - a.get(YEAR);</span>
+<span class="pc bpc" id="L51" title="1 of 2 branches missed.">        if (a.get(MONTH) &gt; b.get(MONTH) ||</span>
+<span class="pc bpc" id="L52" title="2 of 4 branches missed.">                (a.get(MONTH) == b.get(MONTH) &amp;&amp; a.get(DATE) &gt; b.get(DATE))) {</span>
+<span class="nc" id="L53">            diff--;</span>
+        }
+<span class="fc" id="L55">        return diff;</span>
+    }
+
+    private Calendar getCalendar(Date date) {
+<span class="fc" id="L59">        Calendar cal = Calendar.getInstance(Locale.US);</span>
+<span class="fc" id="L60">        cal.setTime(date);</span>
+<span class="fc" id="L61">        return cal;</span>
+    }
+
+    public Date getDate() {
+<span class="nc" id="L65">        return date;</span>
+    }
+
+    public void setDate(Date date) {
+<span class="nc" id="L69">        this.date = date;</span>
+<span class="nc" id="L70">    }</span>
+
+    public void setType(UserType type) {
+<span class="nc" id="L73">        this.type = type;</span>
+<span class="nc" id="L74">    }</span>
+
+    public void setId(long id) {
+<span class="nc" id="L77">        this.id = id;</span>
+<span class="nc" id="L78">    }</span>
+
+    public String getFirstName() {
+<span class="nc" id="L81">        return firstName;</span>
+    }
+
+    public void setFirstName(String firstName) {
+<span class="nc" id="L85">        this.firstName = firstName;</span>
+<span class="nc" id="L86">    }</span>
+
+    public String getLastName() {
+<span class="nc" id="L89">        return lastName;</span>
+    }
+
+    public void setLastName(String lastName) {
+<span class="nc" id="L93">        this.lastName = lastName;</span>
+<span class="nc" id="L94">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
