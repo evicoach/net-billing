@@ -1,2 +1,2 @@
 # Net Billing
-![Alt text here](./Lendsqr.drawio.svg)
+![Alt text here](./netbilling.svg)
