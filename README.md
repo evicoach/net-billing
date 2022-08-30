@@ -1,2 +1,2 @@
 # Net Billing
-![Alt text here](./netbilling.svg)
+![Alt text here](./billing.svg)
