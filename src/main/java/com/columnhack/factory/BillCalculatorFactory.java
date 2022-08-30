@@ -13,14 +13,15 @@ public class BillCalculatorFactory {
         // get userId from the bill;
         // get user with userId from the store user datastore
         // get the user type from the found user
-        if (user.getDiffYears(new Date()) >= 2) {
-            return new OverTwoYearsRewardBillCalculator();
-        }
+
         if (bill.getItemsType() == ItemType.GROCERY) {
             return new GroceryBillCalculator();
         }
         if (user.getType() == UserType.AFFILIATE) {
             return new AffiliateBillCalculator();
+        }
+        if (user.getDiffYears(new Date()) >= 2) {
+            return new OverTwoYearsRewardBillCalculator();
         }
         return new EmployeeBillCalculator();
     }

@@ -1,9 +1,6 @@
 package com.columnhack.factory;
 
-import com.columnhack.bill.Bill;
-import com.columnhack.bill.BillCalculator;
-import com.columnhack.bill.EmployeeBillCalculator;
-import com.columnhack.bill.OverTwoYearsRewardBillCalculator;
+import com.columnhack.bill.*;
 import com.columnhack.store.ItemType;
 import com.columnhack.user.User;
 import com.columnhack.user.UserType;
@@ -72,5 +69,28 @@ class BillCalculatorFactoryTest {
 
         // then
         assertTrue(billCalculator instanceof OverTwoYearsRewardBillCalculator);
+    }
+
+    @DisplayName("Should return GroceryBillCalculator")
+    @Test
+    void groceryBillCalculator() {
+        // given
+        Bill groceryBill = new Bill();
+        groceryBill.setUserId(2L);
+        groceryBill.setAmount(90);
+        groceryBill.setItemsType(ItemType.GROCERY);
+
+        Calendar c = Calendar.getInstance();
+        c.setTime(new Date());
+        c.add(Calendar.YEAR, -3);
+        var user2 = new User(2L, "John", "Doe",
+                UserType.EMPLOYEE, c.getTime());
+
+        // when
+        BillCalculator billCalculator
+                = new BillCalculatorFactory().newBillCalculator(user2, groceryBill);
+
+        // then
+        assertTrue(billCalculator instanceof GroceryBillCalculator);
     }
 }
